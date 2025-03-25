@@ -1,6 +1,4 @@
 #pragma once
-
-
 #include "colors.h"
 #include <fstream>
 #include "juego.h"
@@ -16,5 +14,3 @@ bool cargar_juego(Juego& juego);
 void mostrar_cabecera();
 void pedir_pos(int& fila, int& columna);
 void mostrar_resultado( Juego& juego);
-bool guardar_partida(Juego& juego);
-ostream& operator << (ostream& out, Juego& juego);

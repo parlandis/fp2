@@ -2,18 +2,12 @@
 #include <iostream>
 
 
-
-
-
-
-
 Tablero::Tablero() {
     filas = 0;
     columnas = 0;
 }
 
 Tablero::Tablero(int fils, int cols) {
-    
     filas = fils;
     columnas = cols;
 
@@ -25,6 +19,7 @@ Tablero::Tablero(int fils, int cols) {
 }
 
 void Tablero::destruye() {
+
     for (int i = 0; i < filas; i++) {
         for (int j = 0; j < columnas; j++) {
             celdas[i][j].destruye();
@@ -32,11 +27,11 @@ void Tablero::destruye() {
     }
 }
 
-int Tablero::num_filas()const {
+int Tablero::num_filas() const {
     return filas;
 }
 
-int Tablero::num_columnas()  const {
+int Tablero::num_columnas() const {
     return columnas;
 }
 
@@ -55,6 +50,6 @@ void Tablero::poner_celda(int fila, int columna, const Celda& celda) {
 		celdas[fila][columna] = celda;
 	}
 	else {
-		std::cout << "Celda no válida" << std::endl;
+        //cout << "Celda no válida\n";
 	}
 }

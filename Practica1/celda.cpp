@@ -14,7 +14,7 @@ void Celda::destruye() {
 	marcada = false;
 }
 
-int Celda::dame_numero() {
+int Celda::dame_numero()  const{
 	return numero;
 }
 

@@ -1,6 +1,6 @@
 #include "juego.h"
 
-Juego::Juego() {    
+Juego::Juego():tablero() {    
     num_jugadas = 0;
     mina_pisada = false;
     num_minas = 0;
@@ -87,6 +87,8 @@ void Juego::poner_mina(int fila, int columna) {
             int incF = fila + If[i];
             int incC = columna + Ic[i];
 
+
+            // Si ponemos una mina cambiamos los numeros de alrededor 
             if (tablero.es_valida(incF, incC) && !tablero.dame_celda(incF, incC).contiene_mina()) {
              
 				Celda aux = tablero.dame_celda(incF, incC);   
@@ -110,7 +112,7 @@ void Juego::marcar_desmarcar(int fila, int columna) {
     if (tablero.es_valida(fila, columna)) {
         Celda a = tablero.dame_celda(fila, columna);
         if (a.esta_descubierta()) {
-            cout << "No se puede Marcar esta celda porque esta ya decubierta\n";
+           // cout << "No se puede Marcar esta celda porque esta ya decubierta\n";
         }
         else {
             if (!a.esta_marcada()) {
@@ -130,44 +132,44 @@ void Juego::ocultar(int fila, int columna) {
         Celda c = tablero.dame_celda(fila, columna);
         c.ocultar_celda();
         tablero.poner_celda(fila, columna, c);
+        num_descubiertas--;
     }
 }
 
 
 void Juego::juega(int fila, int columna, ListaPosiciones& lista_pos) {
     if (!tablero.es_valida(fila, columna)) {
-        cout << "Fila y columna no validas\n";
-        return;
+       // cout << "Fila y columna no validas\n";
     }
-
-    if (mina_explotada() || esta_completo()) {
-        return;
+    else if (mina_explotada() || esta_completo()) {
+        
     }
+    else {
 
-    Celda c = tablero.dame_celda(fila, columna);
+        Celda c = tablero.dame_celda(fila, columna);
 
-    if (!c.esta_descubierta() && !c.esta_marcada()) {
-        c.descubrir_celda();
-        tablero.poner_celda(fila, columna, c);
-        lista_pos.insertar_final(fila, columna);
-        num_descubiertas++;
-        num_jugadas++;
+        if (!c.esta_descubierta() && !c.esta_marcada()) {
+            c.descubrir_celda();
+            tablero.poner_celda(fila, columna, c);
+            lista_pos.insertar_final(fila, columna);
+            num_descubiertas++;
+            num_jugadas++;
 
-        if (c.contiene_mina()) {
-            mina_pisada = true;
-            return;
-        }
-        if (c.esta_vacia()) {
-            ListaPosiciones celdas_a_procesar;
-            celdas_a_procesar.insertar_final(fila, columna);
+            if (c.contiene_mina()) {
+                mina_pisada = true;
+  
+            }
+            else if (c.esta_vacia()) {
+                // ListaPosiciones celdas_a_procesar;  // Celdas a procesar de la jugada actual
+                 //celdas_a_procesar.insertar_final(fila, columna);
 
-                
-                int fil = celdas_a_procesar.dame_posX(0);
-                int col = celdas_a_procesar.dame_posY(0);
+                     //int fil = celdas_a_procesar.dame_posX(0);
+                     //int col = celdas_a_procesar.dame_posY(0);
 
+                     // Miramos si las ocho celdas de alrededor estan vacias 
                 for (int j = 0; j < NUM_DIRECCIONES; ++j) {
-                    int nF = fil + DIRECCIONES[j][0];
-                    int nC = col + DIRECCIONES[j][1];
+                    int nF = fila + DIRECCIONES[j][0];
+                    int nC = columna + DIRECCIONES[j][1];
 
                     if (tablero.es_valida(nF, nC)) {
                         Celda vecina = tablero.dame_celda(nF, nC);
@@ -177,14 +179,13 @@ void Juego::juega(int fila, int columna, ListaPosiciones& lista_pos) {
                             lista_pos.insertar_final(nF, nC);
                             num_descubiertas++;
 
-                            if (vecina.esta_vacia()) {
-                                celdas_a_procesar.insertar_final(nF, nC);
-                            }
+                            //if (vecina.esta_vacia()) {
+                             //   celdas_a_procesar.insertar_final(nF, nC);
+                            //}
                         }
                     }
                 }
-            
-
+            }
         }
     }
 }

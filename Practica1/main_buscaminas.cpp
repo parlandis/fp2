@@ -8,11 +8,10 @@
 #include <fstream>
 #include <iomanip>
 #include "colors.h"
-
-using namespace std;
-
 #include "inputOutput.h"
 #include "juego.h"
+
+using namespace std;
 
 void juega(Juego& juego, int fila, int columna, ListaUndo& lista_undo) {
 
@@ -22,15 +21,15 @@ void juega(Juego& juego, int fila, int columna, ListaUndo& lista_undo) {
 		ListaPosiciones ultima_jugada = lista_undo.ultimo_elemento();   // Pasamos la ultima jugada
 
 		if (ultima_jugada.longitud() == 0) {
-			cout << "No se han realizado jugadas anteriores.\n";
-			return;
+			//cout << "No se han realizado jugadas anteriores.\n";
+			
 		}
-
-		for (int i = 0; i < ultima_jugada.longitud(); i++) {
-			juego.ocultar(ultima_jugada.dame_posX(i), ultima_jugada.dame_posY(i));
+		else {
+			for (int i = 0; i < ultima_jugada.longitud(); i++) {
+				juego.ocultar(ultima_jugada.dame_posX(i), ultima_jugada.dame_posY(i));
+			}
+			lista_undo.eliminar_ultimo();
 		}
-		lista_undo.eliminar_ultimo();
-        return;
 	}
 	else if (fila == -2 && columna == -2) {  // Marcar / desmarcar
 
@@ -41,7 +40,6 @@ void juega(Juego& juego, int fila, int columna, ListaUndo& lista_undo) {
 	else if (fila == -1 && columna == -1) {   
 		cout << "Has abandonado el juego\n";
 		juego.destruye();
-		return;
 	}
 	else {  // Metemos las modificaciones en undo 
 		ListaPosiciones posMod;
@@ -64,15 +62,17 @@ int main() {
 
 	if (!cargar_juego(juego)) {
 		cout << "No se ha podido cargar el juego\n";
-		return 1;
+		
 	}
-	
-    do {
-        mostrar_juego_consola(juego);
-        pedir_pos(f, c); 
-        juega(juego, f, c, lista_undo); 
-    } while ((f != -1 || c != -1)&& !juego.esta_completo() && !juego.mina_explotada());
+	else {
 
-    mostrar_resultado(juego);
+		do {
+			mostrar_juego_consola(juego);
+			pedir_pos(f, c);
+			juega(juego, f, c, lista_undo);
+		} while ((f != -1 || c != -1) && !juego.esta_completo() && !juego.mina_explotada());
+
+		mostrar_resultado(juego);
+	}
     return 0;
 }

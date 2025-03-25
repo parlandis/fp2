@@ -14,9 +14,6 @@ void ListaPosiciones::insertar_final(int x, int y) {
 		lista[cont].posy = y;
 		cont++;
 	}
-	else {
-		std::cout << "No se ha podido insertar\n";
-	}
 }
 int ListaPosiciones::longitud() const {
 	return cont;

@@ -12,7 +12,7 @@ private:
 public:
     Celda();
     void destruye();
-    int dame_numero();
+    int dame_numero() const;
     bool esta_descubierta() const;
     bool contiene_mina() const;
     bool contiene_numero() const;

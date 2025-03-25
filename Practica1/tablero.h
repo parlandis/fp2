@@ -2,6 +2,8 @@
 #include "celda.h"
 #include <iostream>
 
+using namespace std;
+
 const int MAX_FILS = 10;
 const int MAX_COLS = 10;
 

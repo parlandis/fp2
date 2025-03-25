@@ -10,11 +10,6 @@ const char CHAR_MINA = '*';  // Mina
 void mostrar_separador(Juego& juego);
 void color_numero(int numero);
 
-ostream& operator << (ostream& out, Juego& juego) {
-    out << juego.dame_num_filas() << juego.dame_num_columnas();
-
-    return out;
-}
 
 istream& operator >>(istream& in, Juego& juego) {
 	int nfils, ncols, nMinas;
@@ -42,7 +37,6 @@ void mostrar_resultado( Juego& juego) {
     if (juego.esta_completo()) {
         cout << "HAS GANADO\n";
     }
-
 }
 
 void mostrar_cabecera() {
@@ -127,8 +121,6 @@ void mostrar_juego_consola( Juego& juego){
     
     // mostrar el número de jugadas del juego
     cout << setw(N_HUECOS) << "Jugadas: " << juego.dame_num_jugadas() << "\n";
-    // mostrar cabecera
-    
 
     cout << "\t  |";
     for (int col = 0; col < juego.dame_num_filas(); col++) {
@@ -136,7 +128,6 @@ void mostrar_juego_consola( Juego& juego){
     }
     cout << endl;
 
-    // mostrar separador
     mostrar_separador(juego);
 
     // mostrar tablero
@@ -155,21 +146,4 @@ void mostrar_juego_consola( Juego& juego){
     cout << endl;
 }
 
-/*
-bool guardar_partida(Juego& juego) {
-    string nombreF;
-    cout << "Introduce el nombre del fichero en el que quieres guardar tu partida: ";
-    cin >> nombreF;
-    cout << "\n";
-
-    ifstream archivo(nombreF);
-    if (!archivo.is_open()) {
-        cout << "Error al abrir el archivo\n";
-        return false;
-    }
-    juego << archivo;
-    archivo.close();
-    return true;
-}
-*/
 

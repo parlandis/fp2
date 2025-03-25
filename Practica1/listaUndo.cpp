@@ -5,6 +5,7 @@ ListaUndo::ListaUndo() {
 }
 
 void ListaUndo::destruye() {
+    lista->destruye();
 	cont = 0;
 }
 
