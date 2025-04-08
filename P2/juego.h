@@ -3,6 +3,7 @@
 #include "tablero.h"
 #include "listaUndo.h"
 #include <iostream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -21,6 +22,7 @@ private:
 public:
     Juego();
     Juego(int fils, int cols);
+    Juego(int fils, int cols, int numMinas);
 
     void destruye();
 

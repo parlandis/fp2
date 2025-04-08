@@ -10,7 +10,9 @@ ListaJuegos::~ListaJuegos() {
 
 }
 int ListaJuegos::insertar(const Juego& juego) {
-
+	if (cont < capacidad) {
+		Juego nuevo = new Juego();
+	}
 }
 int ListaJuegos::dame_longitud() const {
 	return cont;
@@ -20,8 +22,8 @@ bool ListaJuegos::es_vacia() const {
 	if cont > 0 return  false;
 	return true;
 }
-const ListaJuegos::Juego& dame_juego(int pos) const {
-
+const Juego& ListaJuegos::dame_juego(int pos) const {
+	return lista[pos];
 }
 void ListaJuegos::eliminar(int pos) {
 	if (pos < cont - 1) {
@@ -29,5 +31,4 @@ void ListaJuegos::eliminar(int pos) {
 			lista[i] = lista[i + 1];
 		}
 	}
-
 }

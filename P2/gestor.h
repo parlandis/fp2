@@ -1,5 +1,8 @@
 #include <iostream>
+#include <string>
+#include <fstream>
 #include "juego.h"
+#include "listaJuegos.h"
 
 
 class GestorJuegos {

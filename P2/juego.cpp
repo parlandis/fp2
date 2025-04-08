@@ -15,6 +15,13 @@ Juego::Juego(int fils, int cols) : tablero(fils, cols) {
    
 }
 
+Juego::Juego(int fils, int cols, int numMinas) : tablero(fils, cols) {
+    num_jugadas = 0;
+    mina_pisada = false;
+    num_minas = rand() % 10;
+    num_descubiertas = 0;
+}
+
 void Juego::destruye() {
     tablero.destruye();
     num_minas = 0;
