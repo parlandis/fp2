@@ -45,19 +45,8 @@ void mostrar_cabecera() {
 }
 
 bool cargar_juego(Juego& juego) {
-    string nombreF;
-    cout << "Introduce el nombre del fichero: ";
-	cin >> nombreF;
-    cout << "\n";
-    
-	ifstream archivo(nombreF);
-    if (!archivo.is_open()) {
-        cout << "Error al abrir el archivo\n";
-        return false;
-    }
-	archivo >> juego;
-    archivo.close();
-    return true;
+
+    return false;
 }
 
 void color_numero(int numero) {

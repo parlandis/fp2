@@ -129,7 +129,6 @@
   <ItemGroup>
     <ClInclude Include="celda.h" />
     <ClInclude Include="colors.h" />
-    <ClInclude Include="gestor.h" />
     <ClInclude Include="inputOutput.h" />
     <ClInclude Include="juego.h" />
     <ClInclude Include="listaPosiciones.h" />
@@ -140,6 +139,7 @@
     <ClCompile Include="celda.cpp" />
     <ClCompile Include="inputOutput.cpp" />
     <ClCompile Include="juego.cpp" />
+    <ClCompile Include="listaJuegos.cpp" />
     <ClCompile Include="listaPosiciones.cpp" />
     <ClCompile Include="listaUndo.cpp" />
     <ClCompile Include="main_buscaminas.cpp" />

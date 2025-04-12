@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ListaPosiciones.h"
+#include "checkML.h"
 
 const int MAX_UNDO = 10;
 
@@ -12,8 +13,6 @@ private:
 public:
     ListaUndo();
     ~ListaUndo();
-		
-	
 	void eliminar_ultimo();
     void insertar_final(const ListaPosiciones& lista_pos);
     ListaPosiciones ultimo_elemento() const;

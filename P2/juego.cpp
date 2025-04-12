@@ -15,11 +15,23 @@ Juego::Juego(int fils, int cols) : tablero(fils, cols) {
    
 }
 
-Juego::Juego(int fils, int cols, int numMinas) : tablero(fils, cols) {
+Juego::Juego(int fils, int cols, int numMinas) : Juego(fils, cols) {   // TIENE QUE VENIR YA ALEAQTORIO??
     num_jugadas = 0;
     mina_pisada = false;
-    num_minas = rand() % 10;
     num_descubiertas = 0;
+    int i = 0;
+    while ( i < numMinas) {
+        int f = 0 + rand() % (fils - 1);
+        int c = 0 + rand() % (cols - 1);
+        Celda cel = tablero.dame_celda(f, c);
+        if (!cel.contiene_mina()) {
+            cel.poner_mina();
+            tablero.poner_celda(f, c, cel);
+            num_minas++;
+            i++;
+        }
+    }
+
 }
 
 void Juego::destruye() {

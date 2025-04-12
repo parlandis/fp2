@@ -1,8 +1,9 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "juego.h"
 #include "listaJuegos.h"
+#include "inputOutput.h"
+#include "juego.h"
 
 
 class GestorJuegos {
@@ -18,4 +19,4 @@ public:
 	void eliminar(int pos);
 	bool hay_juegos() const;
 	bool guardar_lista_juegos() const;
-};
+};

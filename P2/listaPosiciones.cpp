@@ -1,5 +1,5 @@
 #include "listaPosiciones.h"
-#include "checkML.h"
+
 
 ListaPosiciones::ListaPosiciones(){
 	cont = 0;
@@ -19,7 +19,7 @@ ListaPosiciones::ListaPosiciones(const ListaPosiciones& lp) {
 ListaPosiciones::~ListaPosiciones() {
 	delete[] lista;
 }
-void ListaPosiciones::insertar_final(int x, int y) {
+void ListaPosiciones::insertar_final(int x, int y) {  // hacemos el redim aqui??
 	if (cont >= size) {
 		size *= 2;
 		Posicion* nuevo = new Posicion[size];

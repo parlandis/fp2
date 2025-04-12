@@ -1,4 +1,5 @@
 #include "juego.h"
+#include "checkML.h"
 
 class ListaJuegos {
 private:
@@ -13,4 +14,5 @@ public:
 	bool es_vacia() const;
 	const Juego& dame_juego(int pos) const;
 	void eliminar(int pos);
+	void buscar(const Juego& juego, int& pos);
 };

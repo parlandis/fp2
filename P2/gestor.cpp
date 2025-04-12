@@ -53,10 +53,11 @@ const Juego& GestorJuegos::dame_juego(int pos) const {
 	return juegos.dame_juego(pos);
 }
 int GestorJuegos::insertar(const Juego& juego) {
-
+	int pos = juegos.insertar(juego);
+	return pos;
 }
 void GestorJuegos::eliminar(int pos) {
-
+	juegos.eliminar(pos);
 }
 bool GestorJuegos::hay_juegos() const {
 	return !juegos.es_vacia();
@@ -87,12 +88,5 @@ bool GestorJuegos::guardar_lista_juegos() const {
 		}
 
 	}
-
-
-
-
-	
-
-
 
 }

@@ -8,11 +8,11 @@
 #include <fstream>
 #include <iomanip>
 #include "colors.h"
-#include "inputOutput.h"
-#include "juego.h"
 #include "checkML.h"
+#include "gestor.h"
 
 using namespace std;
+
 
 void juega(Juego& juego, int fila, int columna, ListaUndo& lista_undo) {
 
@@ -55,27 +55,42 @@ void juega(Juego& juego, int fila, int columna, ListaUndo& lista_undo) {
 
 
 
+// No entiendo lo de gestor 
+// ni lo de aletorio como tiene que ir 
+// ni como se carga
+
+
 int main() {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	srand(time(NULL));
-    Juego juego;
-    ListaUndo lista_undo; 
-    int f, c;
+	GestorJuegos gj;
+	int opcion = 0;
+	Juego* actual = nullptr;
 	mostrar_cabecera();
+	if (!gj.cargar_juegos()) {
+		cout << "Error al cargar Juegos\n";
+		cout << "Se genera un juego aleatorio...\n";
 
-	if (!cargar_juego(juego)) {
-		cout << "No se ha podido cargar el juego\n";
-		
+		int f = 3, col = 3, numM = 0 + rand() & f;
+		cout << "Numero de filas (>3) y columnas (>3) del tablero: ";
+	}
+	else {
+		cout << "Juego Nuevo(1) o juego existente(2):";
+		cin >> opcion;
+	}
+
+	if (opcion == 2 && gj.hay_juegos()) {
+		gj.mostrar_lista_juegos();
+		cout << "Selecciona partida:\n";
+		int partida;
+		cin >> partida;
+
+		if (partida >= 0 && partida < gj.numero_juegos()) {
+			actual = new Juego(gj.dame_juego(partida));
+		}
 	}
 	else {
 
-		do {
-			mostrar_juego_consola(juego);
-			pedir_pos(f, c);
-			juega(juego, f, c, lista_undo);
-		} while ((f != -1 || c != -1) && !juego.esta_completo() && !juego.mina_explotada());
-
-		mostrar_resultado(juego);
 	}
-    return 0;
+	return 0;
 }

@@ -1,5 +1,5 @@
 #include "listaUndo.h"
-#include "checkML.h"
+
 
 ListaUndo::ListaUndo() {
 	cont = 0;
@@ -11,9 +11,10 @@ ListaUndo::ListaUndo() {
 ListaUndo::~ListaUndo() {
     for (int i = 0; i < cont; i++) {
         delete lista[i];
+        lista[i] = nullptr;
     }
 }
-void ListaUndo::insertar_final(const ListaPosiciones& lista_pos) {
+void ListaUndo::insertar_final(const ListaPosiciones& lista_pos) {  // Eliminamos por alante o por atras usando elim ult???
     ListaPosiciones* ultima = new ListaPosiciones(lista_pos);
 
     if (cont < MAX_UNDO) {
