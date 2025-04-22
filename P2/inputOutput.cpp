@@ -106,24 +106,25 @@ void mostrar_celda(Juego& juego, int fila, int columna) {
 }
 
 
-void mostrar_juego_consola( Juego& juego){
-    
-    // mostrar el número de jugadas del juego
+void mostrar_juego_consola(Juego& juego) {
+    // Mostrar el número de jugadas
     cout << setw(N_HUECOS) << "Jugadas: " << juego.dame_num_jugadas() << "\n";
 
+    
     cout << "\t  |";
-    for (int col = 0; col < juego.dame_num_filas(); col++) {
+    for (int col = 0; col < juego.dame_num_columnas(); col++) {  
         cout << LBLUE << setw(N_HUECOS) << col << RESET << '|';
     }
     cout << endl;
 
     mostrar_separador(juego);
 
-    // mostrar tablero
+    
     for (int f = 0; f < juego.dame_num_filas(); f++) {
-        // mostrar numero de fila
+       
         cout << "\t" << LBLUE << setw(2) << f << RESET << '|';
-        // mostrar la fila
+
+        
         for (int c = 0; c < juego.dame_num_columnas(); c++) {
             mostrar_celda(juego, f, c);
             cout << '|';

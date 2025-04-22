@@ -89,40 +89,51 @@ int main() {
 	ListaUndo listaundo;
 	mostrar_cabecera();
 	int f, c, numM;
+	int PosicionJ = -1;
 
 	if (!gj.cargar_juegos()) {
 		cout << "Error al cargar Juegos\n";
 		cout << "Se genera un juego aleatorio...\n";
 		crearJuegoAleatorio(f,c, numM);
 		actual = new Juego(f, c, numM);
-		gj.insertar(*actual);
+		PosicionJ = gj.insertar(*actual);
 	}
 	else {
 		if (gj.hay_juegos()) {
+			while (opcion != 2 && opcion != 1) {
 			cout << "Juego nuevo (opcion 1) o juego existente(opcion 2)\n";
 			cin >> opcion;
+			}
 			if (opcion == 2) {
 				gj.mostrar_lista_juegos();
-				cout << "Selecciona partida:\n";
+				bool valido = false;
 				int partida;
-				cin >> partida;
-
-				if (partida >= 0 && partida < gj.numero_juegos()) {
-					actual = new Juego(gj.dame_juego(partida));
+				while (!valido) {
+					cout << "Selecciona partida:\n";
+					
+					cin >> partida;
+					PosicionJ = partida;
+					if (partida > 0 && partida < gj.numero_juegos()) {
+						valido = true;
+					}
 				}
+					if (partida >= 0 && partida < gj.numero_juegos()) {
+						actual = new Juego(gj.dame_juego(partida));
+					}
+				
 			}
 			else {
 				cout << "Se genera un juego aleatorio...\n";
 				crearJuegoAleatorio(f, c, numM);
 				actual = new Juego(f, c, numM);
-				gj.insertar(*actual);
+				PosicionJ = gj.insertar(*actual);
 			}
 		}
 		else {
 			cout << "El fichero cargado no tiene juegos... Se crea uno aleatorio\n";
 			crearJuegoAleatorio(f, c, numM);
 			actual = new Juego(f, c, numM);
-			gj.insertar(*actual);
+			PosicionJ = gj.insertar(*actual);
 		}
 	}
 	bool jugando = true;
@@ -134,10 +145,12 @@ int main() {
 	}
 	if (actual != nullptr) {
 		mostrar_resultado(*actual);
-		if (jugando) {
-			gj.eliminar(0);
-			delete actual;
+		if (jugando && PosicionJ != -1) {
+			int pos = 0;
+			gj.eliminar(PosicionJ);
+			
 		}
+		delete actual;
 	}
 	gj.guardar_lista_juegos();
 

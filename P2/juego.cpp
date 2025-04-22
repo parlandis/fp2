@@ -189,6 +189,7 @@ void Juego::juega(int fila, int columna, ListaPosiciones& lista_pos) {
                 }
 
             }
+            num_jugadas++;
         }
         
     }
