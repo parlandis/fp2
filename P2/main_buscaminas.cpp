@@ -10,6 +10,7 @@
 #include "colors.h"
 #include "checkML.h"
 #include "gestor.h"
+#include "inputOutput.h"
 
 using namespace std;
 
@@ -58,6 +59,7 @@ void juega(Juego& juego, int fila, int columna, ListaUndo& lista_undo) {
 // No entiendo lo de gestor 
 // ni lo de aletorio como tiene que ir 
 // ni como se carga
+//Como nos blindamos para que no pasen archivos solo de jeugo
 
 
 int main() {
@@ -66,31 +68,61 @@ int main() {
 	GestorJuegos gj;
 	int opcion = 0;
 	Juego* actual = nullptr;
+	ListaUndo listaundo;
 	mostrar_cabecera();
+
 	if (!gj.cargar_juegos()) {
 		cout << "Error al cargar Juegos\n";
 		cout << "Se genera un juego aleatorio...\n";
 
-		int f = 3, col = 3, numM = 0 + rand() & f;
+		int f = 3, c = 3, numM;                    // El numero de filas se pide ?? 
 		cout << "Numero de filas (>3) y columnas (>3) del tablero: ";
+		cin >> f >> c;
+		numM = rand() % ((f * c) / 3) + 1;
+		actual = new Juego(f, c, numM);
+		gj.insertar(*actual);
 	}
 	else {
-		cout << "Juego Nuevo(1) o juego existente(2):";
-		cin >> opcion;
-	}
+		if (gj.hay_juegos()) {
+			cout << "Juego nuevo (opcion 1) o juego existente(opcion 2)\n";
+			cin >> opcion;
+			if (opcion == 2) {
+				gj.mostrar_lista_juegos();
+				cout << "Selecciona partida:\n";
+				int partida;
+				cin >> partida;
 
-	if (opcion == 2 && gj.hay_juegos()) {
-		gj.mostrar_lista_juegos();
-		cout << "Selecciona partida:\n";
-		int partida;
-		cin >> partida;
-
-		if (partida >= 0 && partida < gj.numero_juegos()) {
-			actual = new Juego(gj.dame_juego(partida));
+				if (partida >= 0 && partida < gj.numero_juegos()) {
+					actual = new Juego(gj.dame_juego(partida));
+				}
+			}
+		}
+		else {
+			cout << "El fichero cargado no tiene juegos... Se crea uno aleatorio\n";
+			int f = 3, c = 3, numM;                    // El numero de filas se pide ?? 
+			cout << "Numero de filas (>3) y columnas (>3) del tablero: ";
+			cin >> f >> c;
+			numM = rand() % ((f * c) / 3) + 1;
+			actual = new Juego(f, c, numM);
+			gj.insertar(*actual);
 		}
 	}
-	else {
-
+	bool jugando = true;
+	while (jugando && actual != nullptr && !actual->mina_explotada() && !actual->esta_completo()) {
+		mostrar_juego_consola(*actual);
+		int fila, col;
+		pedir_pos(fila, col);
+		juega(*actual, fila, col, listaundo);
 	}
+	if (actual != nullptr) { // Check if 'actual' is not null before dereferencing
+		mostrar_resultado(*actual);
+		gj.eliminar(0);
+		delete actual;
+	}
+	else {
+		cout << "No se pudo inicializar el juego. Saliendo...\n";
+	}
+	gj.guardar_lista_juegos();
+
 	return 0;
 }

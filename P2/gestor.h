@@ -2,8 +2,9 @@
 #include <string>
 #include <fstream>
 #include "listaJuegos.h"
-#include "inputOutput.h"
-#include "juego.h"
+
+
+
 
 
 class GestorJuegos {

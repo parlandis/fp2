@@ -72,21 +72,28 @@ bool GestorJuegos::guardar_lista_juegos() const {
 		cout << "Error al guardar\n";
 		return false;
 	}
-	int numJ = juegos.dame_longitud() - 1;
-
-	archivo << numJ;
+	int numJ = juegos.dame_longitud();
+	archivo << numJ << endl;
 
 	for (int i = 0; i < numJ; i++) {
-		juegos.lista[i];
+		const Juego& juego = juegos.dame_juego(i);
 		int f, c, nM;
-		f = juegos.lista[i]->dame_num_filas;
-		c = juegos.lista[i]->dame_num_columnas;
+		f = juego.dame_num_filas();
+		c = juego.dame_num_columnas();
 		archivo << f << c;
-		nM = juegos.lista[i]->dame_num_minas;
-		for (int j = 0; j < nM; j++) {
+		nM = juego.dame_num_minas();
 
+		archivo << f << " " << c << " \n" << nM << " \n";
+
+		for (int fil = 0; fil < f; ++fil) {
+			for (int col = 0; col < c; ++col) {
+				if (juego.contiene_mina(fil, col)) {
+					archivo << fil << " " << col << " ";
+				}
+			}
 		}
-
+		archivo << endl;
 	}
-
+	archivo.close();
+	return true;
 }

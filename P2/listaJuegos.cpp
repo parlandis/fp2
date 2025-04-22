@@ -59,19 +59,16 @@ void ListaJuegos::eliminar(int pos) {
 
 
 void  ListaJuegos::buscar(const Juego& juego, int& pos) {  // Por Busqueda binari????
-	int dif = juego.dame_num_filas() * juego.dame_num_columnas() / juego.dame_num_minas();
+	double dif = (juego.dame_num_filas() * juego.dame_num_columnas()) / (double)juego.dame_num_minas();
 	pos = 0; 
 	bool enc = false;
 	while (pos < cont && !enc) {
-		int actual = lista[pos]->dame_num_filas() * lista[pos]->dame_num_columnas() / lista[pos]->dame_num_minas();
-		if (actual < dif) {
-
-		}
-		else if (actual > dif) {
-			pos++;
+		double actual = lista[pos]->dame_num_filas() * lista[pos]->dame_num_columnas() / lista[pos]->dame_num_minas();
+		if (dif > actual) {
+			enc = true;
 		}
 		else {
-			enc = true;
+			pos++;
 		}
 	}	
 }

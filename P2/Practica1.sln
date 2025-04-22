@@ -6,13 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Practica1", "Practica1.vcxproj", "{247C7642-33A6-4471-A4E9-C864ED23E9F0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{D107F4C8-89CC-BEA8-D3D7-CA6B7733353D}"
-	ProjectSection(SolutionItems) = preProject
-		checkML.h = checkML.h
-		gestor.cpp = gestor.cpp
-		gestor.h = gestor.h
-		listaJuegos.cpp = listaJuegos.cpp
-		listaJuegos.h = listaJuegos.h
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

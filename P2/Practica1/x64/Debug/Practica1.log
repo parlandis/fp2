@@ -1,9 +1,3 @@
 ﻿  main_buscaminas.cpp
-C:\Users\pable\Downloads\fp2-main\fp2-main\P2\main_buscaminas.cpp(64,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
-main_buscaminas.obj : error LNK2019: símbolo externo "public: __cdecl GestorJuegos::GestorJuegos(void)" (??0GestorJuegos@@QEAA@XZ) sin resolver al que se hace referencia en la función main
-main_buscaminas.obj : error LNK2019: símbolo externo "public: bool __cdecl GestorJuegos::cargar_juegos(void)" (?cargar_juegos@GestorJuegos@@QEAA_NXZ) sin resolver al que se hace referencia en la función main
-main_buscaminas.obj : error LNK2019: símbolo externo "public: void __cdecl GestorJuegos::mostrar_lista_juegos(void)const " (?mostrar_lista_juegos@GestorJuegos@@QEBAXXZ) sin resolver al que se hace referencia en la función main
-main_buscaminas.obj : error LNK2019: símbolo externo "public: int __cdecl GestorJuegos::numero_juegos(void)const " (?numero_juegos@GestorJuegos@@QEBAHXZ) sin resolver al que se hace referencia en la función main
-main_buscaminas.obj : error LNK2019: símbolo externo "public: class Juego const & __cdecl GestorJuegos::dame_juego(int)const " (?dame_juego@GestorJuegos@@QEBAAEBVJuego@@H@Z) sin resolver al que se hace referencia en la función main
-main_buscaminas.obj : error LNK2019: símbolo externo "public: bool __cdecl GestorJuegos::hay_juegos(void)const " (?hay_juegos@GestorJuegos@@QEBA_NXZ) sin resolver al que se hace referencia en la función main
-C:\Users\pable\Downloads\fp2-main\fp2-main\P2\x64\Debug\Practica1.exe : fatal error LNK1120: 6 externos sin resolver
+C:\Users\pable\Downloads\fp2-main\fp2-main\P2\main_buscaminas.cpp(67,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+  Practica1.vcxproj -> C:\Users\pable\Downloads\fp2-main\fp2-main\P2\x64\Debug\Practica1.exe

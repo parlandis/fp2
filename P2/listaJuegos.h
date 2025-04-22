@@ -1,6 +1,7 @@
 #include "juego.h"
 #include "checkML.h"
 
+
 class ListaJuegos {
 private:
 	int cont;
