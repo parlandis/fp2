@@ -14,7 +14,7 @@ ListaJuegos::~ListaJuegos() {
 	delete[] lista;
 	lista = nullptr;
 }
-int ListaJuegos::insertar(const Juego& juego) {
+int ListaJuegos::insertar(const Juego& juego) {   // inserta mal los juegos 
 	if (cont == capacidad) {
 		capacidad *= 2;
 		Juego** nuevo = new Juego * [capacidad];
@@ -28,12 +28,12 @@ int ListaJuegos::insertar(const Juego& juego) {
 	int pos;
 	buscar(juego, pos);
 	
-
+	cont++;
 	for (int i = cont; i > pos; i--) {
 		lista[i] = lista[i - 1];
 	}
 	lista[pos] = new Juego(juego);
-	cont++;
+	
 	return pos;
 }
 int ListaJuegos::dame_longitud() const {
@@ -59,16 +59,24 @@ void ListaJuegos::eliminar(int pos) {
 
 
 void  ListaJuegos::buscar(const Juego& juego, int& pos) {  // Por Busqueda binari????
-	double dif = (juego.dame_num_filas() * juego.dame_num_columnas()) / (double)juego.dame_num_minas();
-	pos = 0; 
 	bool enc = false;
-	while (pos < cont && !enc) {
-		double actual = lista[pos]->dame_num_filas() * lista[pos]->dame_num_columnas() / lista[pos]->dame_num_minas();
+	double dif = (juego.dame_num_filas() * juego.dame_num_columnas()) / (double)juego.dame_num_minas();
+	int ini = 0, fin = cont;
+	
+	int m = (ini + fin) / 2;
+	while (!enc) {
+		double actual = lista[m]->dame_num_filas() * lista[m]->dame_num_columnas() / lista[m]->dame_num_minas();
+
 		if (dif > actual) {
-			enc = true;
+			ini = m + 1;
+		}
+		else if(dif < actual) {
+			fin = m - 1;
+			
 		}
 		else {
-			pos++;
+			enc = true;
 		}
-	}	
+	}
+	pos = m;
 }

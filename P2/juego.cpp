@@ -15,10 +15,11 @@ Juego::Juego(int fils, int cols) : tablero(fils, cols) {
    
 }
 
-Juego::Juego(int fils, int cols, int numMinas) : Juego(fils, cols) {   // TIENE QUE VENIR YA ALEAQTORIO??
+Juego::Juego(int fils, int cols, int numMinas) : Juego(fils, cols) {   
     num_jugadas = 0;
     mina_pisada = false;
     num_descubiertas = 0;
+
     int i = 0;
     while ( i < numMinas) {
         int f = 0 + rand() % (fils - 1);
@@ -189,7 +190,9 @@ void Juego::juega(int fila, int columna, ListaPosiciones& lista_pos) {
 
             }
         }
+        
     }
+   
 }
 
 

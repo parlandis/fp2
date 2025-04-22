@@ -40,9 +40,9 @@ void GestorJuegos::mostrar_lista_juegos() const {
 	for (int i = 0; i < nJ; i++) {
 		Juego j = dame_juego(i);
 		cout << "Juego " << i << ":\n";
-		cout << "Dimension: " << j.dame_num_filas() << " x " << j.dame_num_columnas();
+		cout << "\tDimension: " << j.dame_num_filas() << " x " << j.dame_num_columnas();
 		
-		cout << "\n Minas: " << j.dame_num_minas();
+		cout << "\n \tMinas: " << j.dame_num_minas();
 		cout << endl;
 	}
 }
@@ -54,6 +54,7 @@ const Juego& GestorJuegos::dame_juego(int pos) const {
 }
 int GestorJuegos::insertar(const Juego& juego) {
 	int pos = juegos.insertar(juego);
+	
 	return pos;
 }
 void GestorJuegos::eliminar(int pos) {
@@ -64,7 +65,7 @@ bool GestorJuegos::hay_juegos() const {
 }
 bool GestorJuegos::guardar_lista_juegos() const {
 	string nombreF;
-	cout << "Dame el nombre del archivo en el que quieres guardar la partida";
+	cout << "Dame el nombre del archivo en el que quieres guardar la partida: ";
 	cin >> nombreF;
 	cout << endl;
 	ofstream archivo(nombreF);
@@ -80,7 +81,7 @@ bool GestorJuegos::guardar_lista_juegos() const {
 		int f, c, nM;
 		f = juego.dame_num_filas();
 		c = juego.dame_num_columnas();
-		archivo << f << c;
+		
 		nM = juego.dame_num_minas();
 
 		archivo << f << " " << c << " \n" << nM << " \n";
@@ -88,7 +89,7 @@ bool GestorJuegos::guardar_lista_juegos() const {
 		for (int fil = 0; fil < f; ++fil) {
 			for (int col = 0; col < c; ++col) {
 				if (juego.contiene_mina(fil, col)) {
-					archivo << fil << " " << col << " ";
+					archivo << fil << " " << col << " \n";
 				}
 			}
 		}

@@ -11,11 +11,12 @@
 #include "checkML.h"
 #include "gestor.h"
 #include "inputOutput.h"
+#include "juego.h"
 
 using namespace std;
 
-
-void juega(Juego& juego, int fila, int columna, ListaUndo& lista_undo) {
+// Como se implementa esta funcion nueva ???
+bool juega(Juego& juego, int fila, int columna, ListaUndo& lista_undo) {
 
 
 	if (fila == -3 && columna == -3) {  // Se realiza el undo
@@ -24,13 +25,14 @@ void juega(Juego& juego, int fila, int columna, ListaUndo& lista_undo) {
 
 		if (ultima_jugada.longitud() == 0) {
 			//cout << "No se han realizado jugadas anteriores.\n";
-			
+			return true;
 		}
 		else {
 			for (int i = 0; i < ultima_jugada.longitud(); i++) {
 				juego.ocultar(ultima_jugada.dame_posX(i), ultima_jugada.dame_posY(i));
 			}
 			lista_undo.eliminar_ultimo();
+			return true;
 		}
 	}
 	else if (fila == -2 && columna == -2) {  // Marcar / desmarcar
@@ -38,28 +40,44 @@ void juega(Juego& juego, int fila, int columna, ListaUndo& lista_undo) {
 		cout << "Introduce que ficha quieres Marcar/desmarcar: ";
 		cin >> fila >> columna;
 		juego.marcar_desmarcar(fila, columna);
+		return true;
 	}
 	else if (fila == -1 && columna == -1) {   
 		cout << "Has abandonado el juego\n";
-		juego.destruye();
+		return false;
+		//juego.destruye();
 	}
-	else {  // Metemos las modificaciones en undo 
+	else if(fila > 0 || fila < juego.dame_num_filas() || columna > 0 || columna < juego.dame_num_columnas()){  // Metemos las modificaciones en undo 
 		ListaPosiciones posMod;
 		juego.juega(fila, columna, posMod);
+		
 
 		if (posMod.longitud() > 0 && !juego.mina_explotada()) {
 			lista_undo.insertar_final(posMod);
 		}
+		return true;
 	}
+}
+
+
+void crearJuegoAleatorio(int &f, int &c, int& numM) {
+	cout << "Numero de filas (>3) y columnas (>3) del tablero: ";
+	cin >> f >> c;
+	int numMax = f * c / 3;
+	cout << "Numero de Minas (<" << numMax << "): ";
+	cin >> numM;
 }
 
 
 
 
-// No entiendo lo de gestor 
 // ni lo de aletorio como tiene que ir 
-// ni como se carga
+// Como aumento numJugadas
+// 
 //Como nos blindamos para que no pasen archivos solo de jeugo
+ // buscar Por Busqueda binari????
+
+// Codigo repetido 
 
 
 int main() {
@@ -70,15 +88,12 @@ int main() {
 	Juego* actual = nullptr;
 	ListaUndo listaundo;
 	mostrar_cabecera();
+	int f, c, numM;
 
 	if (!gj.cargar_juegos()) {
 		cout << "Error al cargar Juegos\n";
 		cout << "Se genera un juego aleatorio...\n";
-
-		int f = 3, c = 3, numM;                    // El numero de filas se pide ?? 
-		cout << "Numero de filas (>3) y columnas (>3) del tablero: ";
-		cin >> f >> c;
-		numM = rand() % ((f * c) / 3) + 1;
+		crearJuegoAleatorio(f,c, numM);
 		actual = new Juego(f, c, numM);
 		gj.insertar(*actual);
 	}
@@ -96,13 +111,16 @@ int main() {
 					actual = new Juego(gj.dame_juego(partida));
 				}
 			}
+			else {
+				cout << "Se genera un juego aleatorio...\n";
+				crearJuegoAleatorio(f, c, numM);
+				actual = new Juego(f, c, numM);
+				gj.insertar(*actual);
+			}
 		}
 		else {
 			cout << "El fichero cargado no tiene juegos... Se crea uno aleatorio\n";
-			int f = 3, c = 3, numM;                    // El numero de filas se pide ?? 
-			cout << "Numero de filas (>3) y columnas (>3) del tablero: ";
-			cin >> f >> c;
-			numM = rand() % ((f * c) / 3) + 1;
+			crearJuegoAleatorio(f, c, numM);
 			actual = new Juego(f, c, numM);
 			gj.insertar(*actual);
 		}
@@ -112,15 +130,14 @@ int main() {
 		mostrar_juego_consola(*actual);
 		int fila, col;
 		pedir_pos(fila, col);
-		juega(*actual, fila, col, listaundo);
+		jugando = juega(*actual, fila, col, listaundo);
 	}
-	if (actual != nullptr) { // Check if 'actual' is not null before dereferencing
+	if (actual != nullptr) {
 		mostrar_resultado(*actual);
-		gj.eliminar(0);
-		delete actual;
-	}
-	else {
-		cout << "No se pudo inicializar el juego. Saliendo...\n";
+		if (jugando) {
+			gj.eliminar(0);
+			delete actual;
+		}
 	}
 	gj.guardar_lista_juegos();
 

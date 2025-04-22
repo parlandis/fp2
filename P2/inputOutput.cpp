@@ -44,7 +44,7 @@ void mostrar_cabecera() {
     cout << "-----------\n";
 }
 
-bool cargar_juego(Juego& juego) {
+bool cargar_juego(Juego& juego) {  // seguimos usando esta funcion??
 
     return false;
 }

@@ -1,3 +1,2 @@
-﻿  main_buscaminas.cpp
-C:\Users\pable\Downloads\fp2-main\fp2-main\P2\main_buscaminas.cpp(67,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
-  Practica1.vcxproj -> C:\Users\pable\Downloads\fp2-main\fp2-main\P2\x64\Debug\Practica1.exe
+﻿  listaJuegos.cpp
+  Practica1.vcxproj -> C:\Users\usuario_local\Downloads\fp2-main\P2\x64\Debug\Practica1.exe
