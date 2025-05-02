@@ -49,6 +49,7 @@ bool juega(Juego& juego, int fila, int columna, ListaUndo& lista_undo) {
 	}
 	else if(fila > 0 || fila < juego.dame_num_filas() || columna > 0 || columna < juego.dame_num_columnas()){  // Metemos las modificaciones en undo 
 		ListaPosiciones posMod;
+		
 		juego.juega(fila, columna, posMod);
 		
 
@@ -113,7 +114,7 @@ int main() {
 					
 					cin >> partida;
 					PosicionJ = partida;
-					if (partida > 0 && partida < gj.numero_juegos()) {
+					if (partida >= 0 && partida < gj.numero_juegos()) {
 						valido = true;
 					}
 				}

@@ -3,10 +3,6 @@
 #include <fstream>
 #include "listaJuegos.h"
 
-
-
-
-
 class GestorJuegos {
 private:
 	ListaJuegos juegos;

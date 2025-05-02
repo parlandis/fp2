@@ -57,26 +57,30 @@ void ListaJuegos::eliminar(int pos) {
 	}
 }
 
-
-void  ListaJuegos::buscar(const Juego& juego, int& pos) {  // Por Busqueda binari????
+void  ListaJuegos::buscar(const Juego& juego, int& pos) {  //  No se que orden es el que hay que poner 
 	bool enc = false;
 	double dif = (juego.dame_num_filas() * juego.dame_num_columnas()) / (double)juego.dame_num_minas();
+	//if (juego.dame_num_minas() == 1) dif = 1;
+
 	int ini = 0, fin = dame_longitud() -1;
+
 	
-	int m = (ini + fin) / 2;
-	while (ini < fin) {
-		double actual = lista[m]->dame_num_filas() * lista[m]->dame_num_columnas() / lista[m]->dame_num_minas();
+	while (ini <=  fin && !enc) {
+		int m = (ini + fin) / 2;
+		double actual = (lista[m]->dame_num_filas() * lista[m]->dame_num_columnas()) / (double)lista[m]->dame_num_minas();
 
 		if (dif < actual) {
-			ini = m + 1;
+			fin = m - 1;
 		}
 		else if(dif > actual) {
-			fin = m - 1;
+			ini = m + 1;
 		}
 		else {
 			pos = m;
-			return;
+			enc = true;
 		}
 	}
-	pos = ini;
+	if (!enc) {
+		pos = ini;
+	}
 }

@@ -159,11 +159,13 @@ void Juego::ocultar(int fila, int columna) {
 
 
 void Juego::juega(int fila, int columna, ListaPosiciones& lista_pos) {
+    static int nRecursion = 0; // para poder sumar bien las jugadas 
     if (tablero.es_valida(fila, columna) && !mina_explotada() && !esta_completo()) {
-
+      
         Celda c = tablero.dame_celda(fila, columna);
         if (!c.esta_descubierta() && !c.esta_marcada()) {
-
+            nRecursion++;
+            bool primRec = (nRecursion == 1);
             c.descubrir_celda();
             tablero.poner_celda(fila, columna, c);
             lista_pos.insertar_final(fila, columna);
@@ -183,13 +185,12 @@ void Juego::juega(int fila, int columna, ListaPosiciones& lista_pos) {
                         }
                     }
                 }
-
-                if (num_jugadas == 0) {  // no queremos que se sumen de mas 
+                if (primRec) {
                     num_jugadas++;
                 }
-
             }
-            num_jugadas++;
+            nRecursion--;
+           
         }
         
     }
